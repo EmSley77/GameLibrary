@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  /* Add your CSS styles here */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  form {
+    margin-bottom: 10px;
+  }
+  input[type="text"],
+  input[type="number"] {
+    margin-right: 10px;
+    padding: 5px;
+    width: 200px;
+  }
+  button[type="submit"] {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+</head>
+<body>
+<form action="gamelibrary" method="get"></form>
+
+<form action="addgame" method="post">
+  <input name="name" type="text" required="required" placeholder="Name">
+  <input name="maker" type="text" required="required" placeholder="Maker">
+  <input name="franchise" type="text" required="required" placeholder="Franchise">
+  <input name="category" type="text" required="required" placeholder="Category">
+  <input name="pegi" type="number" required="required" placeholder="PEGI">
+  <input name="year" type="number" required="required"placeholder="Release year">
+  <input name="price" type="number" required="required"placeholder="Price">
+  <button type="submit">Add game</button>
+</form>
+<br>
+<form method="post" action="removegame">
+  <input name="id" required="required" placeholder="Game-ID">
+  <button type="submit">Remove game</button>
+</form>
+<br>
+<form method="get" action="allGames">
+<button type="submit">Show all Games</button>
+</form>
+
+<table>
+  <thead>
+  <tr th:each="game : ${gamelist}">
+    <td th:text="${game.getGameid()}"></td>
+    <td th:text="${game.getName()}"></td>
+    <td th:text="${game.getMaker()}"></td>
+    <td th:text="${game.getFranchise()}"></td>
+    <td th:text="${game.getCategory()}"></td>
+    <td th:text="${game.getPegi()}"></td>
+    <td th:text="${game.getReleaseyear()}"></td>
+    <td th:text="${game.getPrice()}"></td>
+  </tr>
+  </thead>
+</table>
+</body>
+</html>
