@@ -26,11 +26,12 @@ public class GameLibraryService {
         game.setPrice(price);
 
         if (!repository.existsByName(name)) {
-            repository.save(game);
-            return "game saved";
+            synchronized (this) {
+                repository.save(game);
+                return "game saved";
+            }
         }
         else return "Could not save game, already exists!";
-
     }
 
     public String removeGameFromLibrary(int id) {

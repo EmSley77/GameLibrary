@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Maker</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="game : ${searchresult}">
+        <td th:text="${game.getName()}">Name</td>
+        <td th:text="${game.getPrice()}">Price</td>
+        <td th:text="${game.getCategory()}">Category</td>
+        <td th:text="${game.getMaker()}">Maker</td>
+    </tr>
+    </tbody>
+</table>
+<form action="gamelibrary" method="get">
+    <button type="submit">Return</button>
+</form>
+</body>
+</html>

@@ -42,6 +42,12 @@
 <body>
 <form action="gamelibrary" method="get"></form>
 
+<form action="searchgames" method="get">
+  <input name="s" type="text" placeholder="Search for games" required="required">
+  <button type="submit">Search</button>
+</form>
+<br>
+
 <form action="addgame" method="post">
   <input name="name" type="text" required="required" placeholder="Name">
   <input name="maker" type="text" required="required" placeholder="Maker">
