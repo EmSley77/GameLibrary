@@ -1,5 +1,6 @@
 package se.emanuel.gamelibrary.entity;
-
+//Emanuel sleyman
+//2024-04-06
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
