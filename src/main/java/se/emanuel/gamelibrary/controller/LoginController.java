@@ -24,7 +24,7 @@ public class LoginController {
     public String login(Model model, @RequestParam String u, @RequestParam String p) {
         String result = loginService.login(u,p);
         if (result.equals("Welcome") && loginService.getRole(u, p) == 0) {
-            return "gamelibrarypage";
+            return "redirect:/gamelibrarypage.html";
         } else return "redirect:/adminpage.html";
     }
 }

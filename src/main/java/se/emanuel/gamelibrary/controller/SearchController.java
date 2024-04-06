@@ -18,7 +18,7 @@ public class SearchController {
         if (!service.search(s).isEmpty()) {
             model.addAttribute("searchresult",service.search(s));
             return "searchpage";
-        } else return "gamelibrarypage";
+        } else return "redirect:/gamelibrarypage.html";
 
     }
 }

@@ -21,7 +21,7 @@ public class GameLibraryController {
     @GetMapping("gamelibrary")
     public String getLibrary(Model model) {
         model.addAttribute("getsite", "");
-        return "gamelibrarypage";
+        return "redirect:/gamelibrarypage.html";
     }
 
     @PostMapping("addgame")
