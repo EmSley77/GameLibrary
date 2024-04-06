@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+    <!-- Add any additional CSS or meta tags here -->
+    <style>
+        /* Add your CSS styles here */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Year</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through basket items -->
+    <tr th:each="item : ${basket}">
+        <td th:text="${item.getName()}">Name</td>
+        <td th:text="${item.getPrice()}">Price</td>
+        <td th:text="${item.getReleaseyear()}">Year</td>
+        <td>
+            <form action="removebasket" method="post">
+                <input type="hidden" name="id" th:value="${item.getGameid()}">
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<form action="order" method="post">
+    <input type="text" name="u" placeholder="Username" required>
+    <input type="password" name="p" placeholder="Password" required>
+    <button type="submit">Order</button>
+</form>
+
+<form action="gamelibrary" method="get">
+    <button type="submit">return</button>
+</form>
+</body>
+</html>

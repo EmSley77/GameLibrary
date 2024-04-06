@@ -1,4 +1,4 @@
-package se.emanuel.gamelibrary;
+package se.emanuel.gamelibrary.controller;
 //Emanuel sleyman
 //2024-03-21
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import se.emanuel.gamelibrary.entity.Game;
+import se.emanuel.gamelibrary.service.GameLibraryService;
+
+import java.util.List;
 
 @Controller
 public class GameLibraryController {
@@ -30,23 +34,24 @@ public class GameLibraryController {
                           @RequestParam  int year,
                           @RequestParam  int price)
     {
-        String game =  service.addGameToLibrary(name,maker,franchise,category,pegi,year,price);
+        String game = service.addGameToLibrary(name,maker,franchise,category,pegi,year,price);
         model.addAttribute("gametolibrary", game);
-        return "gamelibrarypage";
+        return "redirect:/adminpage.html";
     }
 
     @PostMapping("removegame")
-    public String removegame(@RequestParam int id, Model model) {
+    public String removeGame(@RequestParam int id, Model model) {
         model.addAttribute("removal", service.removeGameFromLibrary(id));
-        service.getAllGames();
-        return "gamelibrarypage";
+        return "redirect:/adminpage.html";
     }
 
-    @GetMapping("allGames")
+    @GetMapping("allgames")
     public String allGame(Model model) {
-
-        model.addAttribute("gamelist", service.getAllGames());
-        return "gamelibrarypage";
+       List<Game> games = service.getAllGames();
+        if (!games.isEmpty()) {
+            model.addAttribute("list", games);
+            return "allgamespageadmin";
+        } else return "redirect:/adminpage.html";
     }
 
 }

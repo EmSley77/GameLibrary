@@ -2,7 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>search</title>
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            display: inline;
+        }
+    </style>
 </head>
 <body>
 <table>
@@ -12,6 +53,7 @@
         <th>Price</th>
         <th>Category</th>
         <th>Maker</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +62,12 @@
         <td th:text="${game.getPrice()}">Price</td>
         <td th:text="${game.getCategory()}">Category</td>
         <td th:text="${game.getMaker()}">Maker</td>
+        <td>
+            <form action="addbasket" method="post">
+                <input type="hidden" name="id" th:value="${game.getGameid()}">
+                <button type="submit">Buy</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

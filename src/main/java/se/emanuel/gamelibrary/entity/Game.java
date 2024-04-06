@@ -1,4 +1,4 @@
-package se.emanuel.gamelibrary;
+package se.emanuel.gamelibrary.entity;
 
 import jakarta.persistence.*;
 

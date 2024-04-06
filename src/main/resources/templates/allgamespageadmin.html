@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        background-color: #6163e5;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #4144e5;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4c6baf;
+        color: white;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>all games</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Maker</th>
+        <th>Franchise</th>
+        <th>Category</th>
+        <th>PEGI</th>
+        <th>Release Year</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="game : ${list}">
+        <td th:text="${game.getName()}"></td>
+        <td th:text="${game.getMaker()}"></td>
+        <td th:text="${game.getFranchise()}"></td>
+        <td th:text="${game.getCategory()}"></td>
+        <td th:text="${game.getPegi()}"></td>
+        <td th:text="${game.getReleaseyear()}"></td>
+        <td th:text="${game.getPrice()}"></td>
+        <td>
+            <form method="post" action="removegame">
+                <input type="hidden" name="id" th:value="${game.getGameid()}">
+                <button type="submit">Remove Game</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form action="admin" method="get">
+    <button type="submit">Return</button>
+</form>
+</body>
+</html>

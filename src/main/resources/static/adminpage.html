@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: #000000;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4144e5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4c6baf;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h2>Admin Controll panel</h2>
+<form action="addgame" method="post">
+    <a>Add game</a>
+    <input name="name" type="text" required="required" placeholder="Name">
+    <input name="maker" type="text" required="required" placeholder="Maker">
+    <input name="franchise" type="text" required="required" placeholder="Franchise">
+    <input name="category" type="text" required="required" placeholder="Category">
+    <input name="pegi" type="number" required="required" placeholder="PEGI">
+    <input name="year" type="number" required="required" placeholder="Release year">
+    <input name="price" type="number" required="required" placeholder="Price">
+    <button type="submit">Add Game</button>
+</form>
+
+<form method="get" action="allgames">
+    <a>Show all games</a>
+    <button type="submit">Show All Games</button>
+</form>
+
+
+<form action="login" method="get">
+    <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>

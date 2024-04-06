@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style>
   /* Add your CSS styles here */
   body {
@@ -40,6 +40,8 @@
     <title>Game</title>
 </head>
 <body>
+<h2>Welcome</h2>
+<h3>Game Corner</h3>
 <form action="gamelibrary" method="get"></form>
 
 <form action="searchgames" method="get">
@@ -47,40 +49,8 @@
   <button type="submit">Search</button>
 </form>
 <br>
-
-<form action="addgame" method="post">
-  <input name="name" type="text" required="required" placeholder="Name">
-  <input name="maker" type="text" required="required" placeholder="Maker">
-  <input name="franchise" type="text" required="required" placeholder="Franchise">
-  <input name="category" type="text" required="required" placeholder="Category">
-  <input name="pegi" type="number" required="required" placeholder="PEGI">
-  <input name="year" type="number" required="required"placeholder="Release year">
-  <input name="price" type="number" required="required"placeholder="Price">
-  <button type="submit">Add game</button>
+<form action="login" method="get">
+    <button type="submit">Logout</button>
 </form>
-<br>
-<form method="post" action="removegame">
-  <input name="id" required="required" placeholder="Game-ID">
-  <button type="submit">Remove game</button>
-</form>
-<br>
-<form method="get" action="allGames">
-<button type="submit">Show all Games</button>
-</form>
-
-<table>
-  <thead>
-  <tr th:each="game : ${gamelist}">
-    <td th:text="${game.getGameid()}"></td>
-    <td th:text="${game.getName()}"></td>
-    <td th:text="${game.getMaker()}"></td>
-    <td th:text="${game.getFranchise()}"></td>
-    <td th:text="${game.getCategory()}"></td>
-    <td th:text="${game.getPegi()}"></td>
-    <td th:text="${game.getReleaseyear()}"></td>
-    <td th:text="${game.getPrice()}"></td>
-  </tr>
-  </thead>
-</table>
 </body>
 </html>

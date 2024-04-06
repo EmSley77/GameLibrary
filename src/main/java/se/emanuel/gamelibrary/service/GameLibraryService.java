@@ -1,9 +1,11 @@
-package se.emanuel.gamelibrary;
+package se.emanuel.gamelibrary.service;
 //Emanuel sleyman
 //2024-03-21
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+import se.emanuel.gamelibrary.entity.Game;
+import se.emanuel.gamelibrary.repository.GameRepository;
 
 import java.util.List;
 
