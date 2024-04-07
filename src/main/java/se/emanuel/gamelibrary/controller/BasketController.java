@@ -2,7 +2,6 @@ package se.emanuel.gamelibrary.controller;
 //Emanuel sleyman
 //2024-04-06
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class BasketController {
 
     @PostMapping("changes")
     public String changeAmount(Model model, @RequestParam int id, @RequestParam int newAmount) {
-        model.addAttribute("change", basketService.changeAmount(id,newAmount ));
+        model.addAttribute("change", basketService.addAmount(id,newAmount ));
         model.addAttribute("basket", basketService.getBasket());
         return "basketpage";
     }

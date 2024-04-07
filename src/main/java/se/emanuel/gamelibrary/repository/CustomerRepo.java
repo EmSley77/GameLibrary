@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CustomerRepo extends JpaRepository<Customer, Integer> {
     List<Customer> findCustomerByUsernameAndPassword(String u, String p);
-
+    List<Customer> findCustomerByUsername(String u);
     boolean existsByUsername(String username);
 }

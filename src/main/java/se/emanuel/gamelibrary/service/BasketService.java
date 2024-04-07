@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @SessionScope
@@ -32,36 +31,42 @@ public class BasketService {
     public ArrayList<Game> basket = new ArrayList<>();
     public ArrayList<Order> order = new ArrayList<>();
 
+
     @Transactional
     public String order(String username, String password) {
-            List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
-            if (findPerson == null || findPerson.isEmpty()) {
-                return "user not existent";
-            } else {
-                for (Customer customer : findPerson) {
+        List<Customer> findPerson = customerRepo.findCustomerByUsername(username);
+        if (findPerson == null || findPerson.isEmpty()) {
+            return "User does not exist";
+        } else {
+            if (basket.isEmpty()) {
+                return "Basket is empty";
+            }
+            for (Customer customer : findPerson) {
+                if (customer.getPassword().equals(password)) {
                     for (Game game : basket) {
                         for (Order order1 : order) {
                             if (game.getGameid() == order1.getGameId()) {
-                                if(!orderAlreadyExists(order1, customer.getCustomerId()) && !basket.isEmpty()) {
-                                    Order newOrder = new Order();
-                                    newOrder.setGameId(game.getGameid());
-                                    newOrder.setCustomerId(customer.getCustomerId());
-                                    int newTotalP = game.getPrice() * game.getAmount();
-                                    newOrder.setTotalPrice(newTotalP);
-                                    newOrder.setTime(Timestamp.valueOf(LocalDateTime.now()));
-                                    newOrder.setAmount(game.getAmount());
-                                    orderRepo.save(newOrder);
-                                    break;
-                                } else return "basket is empty";
+                                Order newOrder = new Order();
+                                newOrder.setGameId(game.getGameid());
+                                newOrder.setCustomerId(customer.getCustomerId());
+                                int newTotalPrice = game.getPrice() * game.getAmount();
+                                newOrder.setTotalPrice(newTotalPrice);
+                                newOrder.setTime(Timestamp.valueOf(LocalDateTime.now()));
+                                newOrder.setAmount(game.getAmount());
+                                orderRepo.save(newOrder);
+                                break;
                             }
                         }
                     }
+                    basket.clear();
+                    order.clear();
+                    return "Success";
+                } else {
+                    return "Incorrect password";
                 }
-                return "success";
             }
-    }
-    private boolean orderAlreadyExists(Order order, int customerId) {
-        return order.getCustomerId() == customerId;
+            return "User not found, either credentials are wrong or no login";
+        }
     }
 
 
@@ -79,7 +84,7 @@ public class BasketService {
     }
 
 
-    public List<Game> changeAmount(int id, int newAmount) {
+    public List<Game> addAmount(int id, int newAmount) {
         for (Game game : basket) {
             if (game.getGameid() == id) {
                 int oldAmount = game.getAmount();
@@ -88,9 +93,10 @@ public class BasketService {
                 int newPrice = (newAmount + oldAmount) * singleGamePrice;
                 game.setPrice(newPrice);
                 break;
-            } else {
-                throw new IllegalArgumentException("Game with ID " + id + " not found in the basket");
             }
+        }
+        if (!gameRepository.existsById(id)){
+            throw new IllegalArgumentException("Game with ID " + id + " not found in the basket");
         }
         return basket;
     }
