@@ -80,7 +80,6 @@ public class BasketService {
     public List<Game> changeAmount(int id, int newAmount) {
         for (Game game : basket) {
             if (game.getGameid() == id) {
-
                 int oldAmount = game.getAmount();
                 game.setAmount(newAmount + oldAmount);
                 int singleGamePrice = game.getPrice();
@@ -93,19 +92,17 @@ public class BasketService {
         }
         return basket;
     }
+    //Needs fixing
     public List<Game> removeAmount(int id, int delAmount) {
         for (Game game : basket) {
             if (game.getGameid() == id) {
                 int oldAmount = game.getAmount();
                 if (oldAmount >= delAmount) {
-                    game.setAmount(oldAmount - delAmount);
+                    int newAmount = oldAmount - delAmount;
+                    game.setAmount(newAmount);
+                    game.setPrice( newAmount * game.getPrice());
+                    break;
                 }
-                int singleGamePrice = game.getPrice();
-                int newPrice = (oldAmount - delAmount) * singleGamePrice;
-                game.setPrice(newPrice);
-                break;
-            } else {
-                throw new IllegalArgumentException("Game with ID " + id + " not found in the basket");
             }
         }
         return basket;
