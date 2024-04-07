@@ -16,27 +16,36 @@ public class BasketController {
     @Autowired
     BasketService basketService;
 
-    @GetMapping("basket")
+    @GetMapping("baskets")
     public String getBasket(Model model) {
-        model.addAttribute("basket", basketService.getBasket());
-        return "basketpage";
+        if(!basketService.getBasket().isEmpty()) {
+            model.addAttribute("basket", basketService.getBasket());
+            return "basketpage";
+        } else return "searchpage";
     }
 
-    @PostMapping("addbasket")
+    @PostMapping("addbaskets")
     public String addB(Model model, @RequestParam int id) {
         model.addAttribute("basketadd", basketService.addBasket(id));
         model.addAttribute("basket", basketService.getBasket());
         return "basketpage";
     }
 
-    @PostMapping("removebasket")
+    @PostMapping("removebaskets")
     public String removeB(Model model, @RequestParam int id) {
         model.addAttribute("remove", basketService.remove(id));
         model.addAttribute("basket", basketService.getBasket());
         return "basketpage";
     }
 
-    @GetMapping("cost")
+    @PostMapping("changes")
+    public String changeAmount(Model model, @RequestParam int id, @RequestParam int newAmount) {
+        model.addAttribute("change", basketService.changeAmount(id,newAmount ));
+        model.addAttribute("basket", basketService.getBasket());
+        return "basketpage";
+    }
+
+    @GetMapping("costs")
     public String getTotal(Model model) {
         model.addAttribute("cost", basketService.getTotalCost());
         return "basketpage";

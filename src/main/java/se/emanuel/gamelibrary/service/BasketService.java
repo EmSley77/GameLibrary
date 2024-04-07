@@ -1,6 +1,7 @@
 package se.emanuel.gamelibrary.service;
 //Emanuel sleyman
 //2024-04-06
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -31,39 +32,68 @@ public class BasketService {
     public ArrayList<Order> order = new ArrayList<>();
 
     public String order(String username, String password) {
-        try {
-            List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
-            for (Customer customer : findPerson) {
-                for (Game game : basket) {
-                    Order order = new Order();
-                    order.setAmount(1);
-                    order.setGameId(game.getGameid());
-                    order.setCustomerId(customer.getCustomerId());
-                    order.setTime(Timestamp.valueOf(LocalDateTime.now()));
-                    orderRepo.save(order);
+        List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
+        if (findPerson == null || findPerson.isEmpty()) {
+            return "User not existent or wrong credentials";
+        }
+
+        for (Customer customer : findPerson) {
+            for (Game game : basket) {
+                for (Order order1 : order) {
+                    if (game.getGameid() == order1.getGameId()) {
+                        if (!orderAlreadyExists(order1, customer.getCustomerId())) {
+                            createOrder(game, customer);
+                            break;
+                        }
+                    }
                 }
             }
-            return "success";
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+        return "Success";
     }
 
+    private boolean orderAlreadyExists(Order order, int customerId) {
+        return order.getCustomerId() == customerId;
+    }
+
+    public void createOrder(Game game, Customer customer) {
+        Order newOrder = new Order();
+        newOrder.setGameId(game.getGameid());
+        newOrder.setCustomerId(customer.getCustomerId());
+        int newTotalP = game.getPrice() * game.getAmount();
+        newOrder.setTotalPrice(newTotalP);
+        newOrder.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        newOrder.setAmount(game.getAmount());
+        orderRepo.save(newOrder);
+    }
 
     public List<Game> addBasket(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
-        for (Game game:product) {
-            if (game.getGameid() == id) {
-                basket.add(game);
-                break;
-            }
+        if (product.isEmpty()) {
+            throw new IllegalArgumentException("could not match id with gameId");
         }
+        basket.addAll(product);
+        return basket;
+    }
+
+
+    public List<Game> changeAmount(int id, int newAmount) {
+        List<Game> findGame = gameRepository.findGameByGameid(id);
+            if (findGame == null && findGame.isEmpty() ) {
+                throw new IllegalArgumentException("Cannot find game with given ID");
+            }
+                for (Game game : findGame) {
+                game.setAmount(newAmount);
+                int newPrice = newAmount * game.getPrice();
+                game.setPrice(newPrice);
+            }
+
         return basket;
     }
 
     public List<Game> remove(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
-        for (Game game:product) {
+        for (Game game : product) {
             if (game.getGameid() == id) {
                 basket.remove(game);
                 break;
@@ -73,9 +103,9 @@ public class BasketService {
     }
 
     public int getTotalCost() {
-        int totalC =0;
-        for (int i = 0; i < basket.size(); i++) {
-             totalC += basket.get(i).getPrice();
+        int totalC = 0;
+        for (Game game: basket) {
+            totalC += game.getPrice() * game.getAmount();
         }
         return totalC;
     }
@@ -83,4 +113,6 @@ public class BasketService {
     public List<Game> getBasket() {
         return basket;
     }
+
+
 }

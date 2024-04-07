@@ -31,6 +31,9 @@ public class Game {
     @Column(name = "releaseyear", nullable = false)
     private int releaseyear;
     @Basic
+    @Column(name = "amount", nullable = false)
+    private int amount;
+    @Basic
     @Column(name = "price", nullable = false)
     private int price;
 
@@ -38,7 +41,7 @@ public class Game {
 
     }
 
-    public Game(String name, String maker, String franchise, String category, int pegi, int releaseyear, int price) {
+    public Game(String name, String maker, String franchise, String category, int pegi, int releaseyear, int price, int amount) {
         this.name = name;
         this.maker = maker;
         this.franchise = franchise;
@@ -46,6 +49,15 @@ public class Game {
         this.pegi = pegi;
         this.releaseyear = releaseyear;
         this.price = price;
+        this.amount = amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public int getPrice() {

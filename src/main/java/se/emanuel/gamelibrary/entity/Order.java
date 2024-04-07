@@ -22,18 +22,31 @@ public class Order {
     @Column(name = "amount", nullable = false)
     private int amount;
     @Basic
+    @Column(name = "totalprice", nullable = false)
+    private int totalPrice;
+    @Basic
     @Column(name = "time", nullable = false)
     private Timestamp time;
 
-    public Order(int customerId, int gameId, int amount, Timestamp time) {
+    public Order(int customerId, int gameId, int amount,int totalPrice, Timestamp time) {
         this.customerId = customerId;
         this.gameId = gameId;
         this.amount = amount;
+        this.totalPrice = totalPrice;
         this.time = time;
+
     }
 
     public Order() {
 
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getOrderId() {

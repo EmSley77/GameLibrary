@@ -34,12 +34,19 @@
     <!-- Loop through basket items -->
     <tr th:each="item : ${basket}">
         <td th:text="${item.getName()}">Name</td>
-        <td th:text="${item.getPrice()}">Price</td>
+        <td th:text="${item.getPrice}">Price</td>
         <td th:text="${item.getReleaseyear()}">Year</td>
         <td>
-            <form action="removebasket" method="post">
+            <form action="removebaskets" method="post">
                 <input type="hidden" name="id" th:value="${item.getGameid()}">
                 <button type="submit">Remove</button>
+            </form>
+        </td>
+        <td>
+            <form action="changes" method="post">
+                <input type="hidden" name="id" th:value="${item.getGameid()} ">
+                <input type="number" name="newAmount" placeholder="New price" required="required">
+                <button type="submit">CHANGE AMOUNT</button>
             </form>
         </td>
     </tr>
