@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #f9f9f9; /* Light gray background */
+padding: 20px;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+background-color: #fff; /* White background */
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for table */
+}
+
+th, td {
+border: 1px solid #ddd;
+padding: 10px;
+text-align: left;
+}
+
+th {
+background-color: #f2f2f2;
+font-weight: bold;
+}
+
+button {
+padding: 8px 16px;
+border: none;
+background-color: #4144e5; /* Green */
+color: white;
+cursor: pointer;
+border-radius: 4px;
+}
+
+button:hover {
+background-color: #5c45a0; /* Darker green on hover */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+padding: 8px;
+border: 1px solid #ccc;
+border-radius: 4px;
+margin-bottom: 10px;
+width: calc(100% - 18px); /* Adjust width to fit within container */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+outline: none;
+border-color: #c57dfa; /* Green on focus */
+}
+
+form {
+margin-bottom: 20px;
+}
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Basket</title>
-    <!-- Add any additional CSS or meta tags here -->
-    <style>
-        /* Add your CSS styles here */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
 <table>
@@ -64,7 +108,9 @@
     </tr>
     </tbody>
 </table>
-
+<br>
+<a>Total cost:  <span th:text="${total}"></span></a>
+<br>
 <form action="order" method="post">
     <input type="text" name="u" placeholder="Username" required>
     <input type="password" name="p" placeholder="Password" required>

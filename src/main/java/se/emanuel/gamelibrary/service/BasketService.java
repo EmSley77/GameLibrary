@@ -69,6 +69,13 @@ public class BasketService {
         }
     }
 
+public int getTotalPrice() {
+        int totalP = 0;
+        for (Game game:basket) {
+            totalP += game.getPrice();
+        }
+    return totalP;
+}
 
     public List<Game> addBasket(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
@@ -131,13 +138,7 @@ public class BasketService {
         return basket;
     }
 
-    public int getTotalCost() {
-        int totalC = 0;
-        for (Game game: basket) {
-            totalC += game.getPrice() * game.getAmount();
-        }
-        return totalC;
-    }
+
 
     public List<Game> getBasket() {
         return basket;

@@ -19,6 +19,7 @@ public class BasketController {
     public String getBasket(Model model) {
         if(!basketService.getBasket().isEmpty()) {
             model.addAttribute("basket", basketService.getBasket());
+            model.addAttribute("total", basketService.getTotalPrice());
             return "basketpage";
         } else return "searchpage";
     }
@@ -27,6 +28,7 @@ public class BasketController {
     public String addB(Model model, @RequestParam int id) {
         model.addAttribute("basketadd", basketService.addBasket(id));
         model.addAttribute("basket", basketService.getBasket());
+        model.addAttribute("total", basketService.getTotalPrice());
 
         return "basketpage";
     }
@@ -35,6 +37,7 @@ public class BasketController {
     public String removeB(Model model, @RequestParam int id) {
         model.addAttribute("remove", basketService.remove(id));
         model.addAttribute("basket", basketService.getBasket());
+        model.addAttribute("total", basketService.getTotalPrice());
         return "basketpage";
     }
 
@@ -42,6 +45,7 @@ public class BasketController {
     public String changeAmount(Model model, @RequestParam int id, @RequestParam int newAmount) {
         model.addAttribute("change", basketService.addAmount(id,newAmount ));
         model.addAttribute("basket", basketService.getBasket());
+        model.addAttribute("total", basketService.getTotalPrice());
         return "basketpage";
     }
 
@@ -49,12 +53,7 @@ public class BasketController {
     public String removeAmount(Model model, @RequestParam int id, @RequestParam int newAmountDel) {
         model.addAttribute("change", basketService.removeAmount(id,newAmountDel ));
         model.addAttribute("basket", basketService.getBasket());
-        return "basketpage";
-    }
-
-    @GetMapping("costs")
-    public String getTotal(Model model) {
-        model.addAttribute("cost", basketService.getTotalCost());
+        model.addAttribute("total", basketService.getTotalPrice());
         return "basketpage";
     }
 
