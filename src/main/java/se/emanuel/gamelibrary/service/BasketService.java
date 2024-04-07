@@ -4,6 +4,7 @@ package se.emanuel.gamelibrary.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 import se.emanuel.gamelibrary.entity.Customer;
 import se.emanuel.gamelibrary.entity.Game;
@@ -31,6 +32,7 @@ public class BasketService {
     public ArrayList<Game> basket = new ArrayList<>();
     public ArrayList<Order> order = new ArrayList<>();
 
+    @Transactional
     public String order(String username, String password) {
             List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
             if (findPerson == null || findPerson.isEmpty()) {
@@ -40,7 +42,7 @@ public class BasketService {
                     for (Game game : basket) {
                         for (Order order1 : order) {
                             if (game.getGameid() == order1.getGameId()) {
-                                if(!orderAlreadyExists(order1, customer.getCustomerId())) {
+                                if(!orderAlreadyExists(order1, customer.getCustomerId()) && !basket.isEmpty()) {
                                     Order newOrder = new Order();
                                     newOrder.setGameId(game.getGameid());
                                     newOrder.setCustomerId(customer.getCustomerId());
@@ -50,8 +52,7 @@ public class BasketService {
                                     newOrder.setAmount(game.getAmount());
                                     orderRepo.save(newOrder);
                                     break;
-                                }
-
+                                } else return "basket is empty";
                             }
                         }
                     }
@@ -71,6 +72,7 @@ public class BasketService {
         }
         for (Game game : product) {
             game.setAmount(1);
+            game.setPrice(game.getPrice());
         }
         basket.addAll(product);
         return basket;
@@ -92,15 +94,20 @@ public class BasketService {
         }
         return basket;
     }
-    //Needs fixing
+
     public List<Game> removeAmount(int id, int delAmount) {
-        for (Game game : basket) {
+        for (int i = 0; i < basket.size();i++) {
+            Game game = basket.get(i);
             if (game.getGameid() == id) {
                 int oldAmount = game.getAmount();
-                if (oldAmount >= delAmount) {
+                if (game.getAmount() < 1) {
+                    basket.remove(i);
+                }else {
                     int newAmount = oldAmount - delAmount;
                     game.setAmount(newAmount);
-                    game.setPrice( newAmount * game.getPrice());
+                    int singleGamePrice = game.getPrice() / oldAmount;
+                    int newPrice = newAmount * singleGamePrice;
+                    game.setPrice(newPrice);
                     break;
                 }
             }

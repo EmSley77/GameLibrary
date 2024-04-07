@@ -5,13 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.emanuel.gamelibrary.entity.Customer;
+import se.emanuel.gamelibrary.entity.Order;
 import se.emanuel.gamelibrary.repository.CustomerRepo;
+import se.emanuel.gamelibrary.repository.OrderRepo;
+
+import java.util.List;
 
 @Service
 public class AdminService {
 
     @Autowired
     CustomerRepo customerRepo;
+    @Autowired
+    OrderRepo orderRepo;
+
+
     @Transactional
     public String createAdmin(String name, String lastname, String address, String username, String password, int age) {
         Customer customer = new Customer();
@@ -29,4 +37,7 @@ public class AdminService {
         } else return "already exists";
     }
 
+    public List<Order> getOrders() {
+        return orderRepo.findAll();
+    }
 }

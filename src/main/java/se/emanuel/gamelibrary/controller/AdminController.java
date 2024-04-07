@@ -30,4 +30,11 @@ public class AdminController {
         model.addAttribute("admin",adminService.createAdmin(name, lastname, address, username, password, age));
         return "redirect:/adminpage.html";
     }
+    @GetMapping("orders")
+    public String getAllOrders(Model model) {
+        if (!adminService.getOrders().isEmpty()) {
+            model.addAttribute("orders", adminService.getOrders());
+            return "allorderspage";
+        } else return "redirect:/adminpage.html";
+    }
 }

@@ -16,7 +16,13 @@ public class OrderController {
 
     @PostMapping("order")
     public String order(Model model, @RequestParam String u, @RequestParam String p) {
-        model.addAttribute("order", basketService.order(u,p));
-        return "thxpage";
+        if (!basketService.getBasket().isEmpty()) {
+            model.addAttribute("order", basketService.order(u,p));
+            return "thxpage";
+        } else{
+            model.addAttribute("basket", basketService.getBasket());
+            return "basketpage";
+        }
+
     }
 }
