@@ -5,6 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+<table>
+    <thead>
+    <tr th:each="item : ${orders}">
+        <td th:text="${item.getOrderId()}">Order Id</td>
+        <td th:text="${item.getGameId()}">Game Id</td>
+        <td th:text="${item.getCustomerId()}">Customer Id</td>
+        <td th:text="${item.getAmount()}">Amount</td>
+        <td th:text="${item.getTime()}">Time</td>
+    </tr>
+    </thead>
+</table>
 
+<form action="admin" method="get">
+    <button type="submit">RETURN</button>
+</form>
 </body>
 </html>
