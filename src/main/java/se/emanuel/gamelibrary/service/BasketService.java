@@ -32,45 +32,45 @@ public class BasketService {
     public ArrayList<Order> order = new ArrayList<>();
 
     public String order(String username, String password) {
-        List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
-        if (findPerson == null || findPerson.isEmpty()) {
-            return "User not existent or wrong credentials";
-        }
+            List<Customer> findPerson = customerRepo.findCustomerByUsernameAndPassword(username, password);
+            if (findPerson == null || findPerson.isEmpty()) {
+                return "user not existent";
+            } else {
+                for (Customer customer : findPerson) {
+                    for (Game game : basket) {
+                        for (Order order1 : order) {
+                            if (game.getGameid() == order1.getGameId()) {
+                                if(!orderAlreadyExists(order1, customer.getCustomerId())) {
+                                    Order newOrder = new Order();
+                                    newOrder.setGameId(game.getGameid());
+                                    newOrder.setCustomerId(customer.getCustomerId());
+                                    int newTotalP = game.getPrice() * game.getAmount();
+                                    newOrder.setTotalPrice(newTotalP);
+                                    newOrder.setTime(Timestamp.valueOf(LocalDateTime.now()));
+                                    newOrder.setAmount(game.getAmount());
+                                    orderRepo.save(newOrder);
+                                    break;
+                                }
 
-        for (Customer customer : findPerson) {
-            for (Game game : basket) {
-                for (Order order1 : order) {
-                    if (game.getGameid() == order1.getGameId()) {
-                        if (!orderAlreadyExists(order1, customer.getCustomerId())) {
-                            createOrder(game, customer);
-                            break;
+                            }
                         }
                     }
                 }
+                return "success";
             }
-        }
-        return "Success";
     }
-
     private boolean orderAlreadyExists(Order order, int customerId) {
         return order.getCustomerId() == customerId;
     }
 
-    public void createOrder(Game game, Customer customer) {
-        Order newOrder = new Order();
-        newOrder.setGameId(game.getGameid());
-        newOrder.setCustomerId(customer.getCustomerId());
-        int newTotalP = game.getPrice() * game.getAmount();
-        newOrder.setTotalPrice(newTotalP);
-        newOrder.setTime(Timestamp.valueOf(LocalDateTime.now()));
-        newOrder.setAmount(game.getAmount());
-        orderRepo.save(newOrder);
-    }
 
     public List<Game> addBasket(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
-        if (product.isEmpty()) {
-            throw new IllegalArgumentException("could not match id with gameId");
+        if (product == null) {
+            throw new IllegalArgumentException("product with id not found");
+        }
+        for (Game game : product) {
+            game.setAmount(1);
         }
         basket.addAll(product);
         return basket;
@@ -78,19 +78,38 @@ public class BasketService {
 
 
     public List<Game> changeAmount(int id, int newAmount) {
-        List<Game> findGame = gameRepository.findGameByGameid(id);
-            if (findGame == null && findGame.isEmpty() ) {
-                throw new IllegalArgumentException("Cannot find game with given ID");
-            }
-                for (Game game : findGame) {
-                game.setAmount(newAmount);
-                int newPrice = newAmount * game.getPrice();
-                game.setPrice(newPrice);
-            }
+        for (Game game : basket) {
+            if (game.getGameid() == id) {
 
+                int oldAmount = game.getAmount();
+                game.setAmount(newAmount + oldAmount);
+                int singleGamePrice = game.getPrice();
+                int newPrice = (newAmount + oldAmount) * singleGamePrice;
+                game.setPrice(newPrice);
+                break;
+            } else {
+                throw new IllegalArgumentException("Game with ID " + id + " not found in the basket");
+            }
+        }
         return basket;
     }
-
+    public List<Game> removeAmount(int id, int delAmount) {
+        for (Game game : basket) {
+            if (game.getGameid() == id) {
+                int oldAmount = game.getAmount();
+                if (oldAmount >= delAmount) {
+                    game.setAmount(oldAmount - delAmount);
+                }
+                int singleGamePrice = game.getPrice();
+                int newPrice = (oldAmount - delAmount) * singleGamePrice;
+                game.setPrice(newPrice);
+                break;
+            } else {
+                throw new IllegalArgumentException("Game with ID " + id + " not found in the basket");
+            }
+        }
+        return basket;
+    }
     public List<Game> remove(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
         for (Game game : product) {

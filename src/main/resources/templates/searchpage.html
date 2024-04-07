@@ -63,7 +63,7 @@
         <td th:text="${game.getCategory()}">Category</td>
         <td th:text="${game.getMaker()}">Maker</td>
         <td>
-            <form action="addbasket" method="post">
+            <form action="addbaskets" method="post">
                 <input type="hidden" name="id" th:value="${game.getGameid()}">
                 <button type="submit">Buy</button>
             </form>

@@ -27,6 +27,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Year</th>
+        <th>Amount</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -34,21 +35,32 @@
     <!-- Loop through basket items -->
     <tr th:each="item : ${basket}">
         <td th:text="${item.getName()}">Name</td>
-        <td th:text="${item.getPrice}">Price</td>
+        <td th:text="${item.getPrice()}">Price</td>
         <td th:text="${item.getReleaseyear()}">Year</td>
+        <td th:text="${item.getAmount()}">Amount</td>
         <td>
             <form action="removebaskets" method="post">
                 <input type="hidden" name="id" th:value="${item.getGameid()}">
-                <button type="submit">Remove</button>
+                <button type="submit">DELETE</button>
             </form>
         </td>
+
+        <td>
+            <form action="change" method="post">
+                <input type="hidden" name="id" th:value="${item.getGameid()}">
+                <input type="number" name="newAmountDel" placeholder="New amount" required="required">
+                <button type="submit">REMOVE AMOUNT</button>
+            </form>
+        </td>
+
         <td>
             <form action="changes" method="post">
                 <input type="hidden" name="id" th:value="${item.getGameid()} ">
-                <input type="number" name="newAmount" placeholder="New price" required="required">
-                <button type="submit">CHANGE AMOUNT</button>
+                <input type="number" name="newAmount" placeholder="New amount" required="required">
+                <button type="submit">ADD AMOUNT</button>
             </form>
         </td>
+
     </tr>
     </tbody>
 </table>

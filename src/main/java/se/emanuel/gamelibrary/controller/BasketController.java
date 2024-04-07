@@ -28,6 +28,7 @@ public class BasketController {
     public String addB(Model model, @RequestParam int id) {
         model.addAttribute("basketadd", basketService.addBasket(id));
         model.addAttribute("basket", basketService.getBasket());
+
         return "basketpage";
     }
 
@@ -41,6 +42,13 @@ public class BasketController {
     @PostMapping("changes")
     public String changeAmount(Model model, @RequestParam int id, @RequestParam int newAmount) {
         model.addAttribute("change", basketService.changeAmount(id,newAmount ));
+        model.addAttribute("basket", basketService.getBasket());
+        return "basketpage";
+    }
+
+    @PostMapping("change")
+    public String removeAmount(Model model, @RequestParam int id, @RequestParam int newAmountDel) {
+        model.addAttribute("change", basketService.removeAmount(id,newAmountDel ));
         model.addAttribute("basket", basketService.getBasket());
         return "basketpage";
     }
