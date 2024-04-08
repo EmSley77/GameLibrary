@@ -13,7 +13,7 @@
 
     body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+        background-color: #e3e3e3;
         margin: 0;
         padding: 0;
         display: flex;
@@ -23,7 +23,7 @@
     }
 
     form {
-        background-color: #fff;
+        background-color: #000000;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(128, 115, 115, 0.1);
@@ -54,7 +54,10 @@
     }
 
     button[type="submit"]:hover {
-        background-color: #c57dfa;
+        background-color: #fa7db1;
+    }
+    a {
+        color: #f4f4f4;
     }
 </style>
 <head>
@@ -62,18 +65,20 @@
     <title>login</title>
 </head>
 <body>
-<img src="spidey.jpg">
+<img src="ga.jpg">
 <form action="logintry" method="post">
+    <a>Sign in</a>
     <input type="text" name="u" placeholder="Username" required="required">
     <br>
     <input type="password" name="p" placeholder="Password" required="required">
     <br>
     <button type="submit">Login</button>
+    <br>
+    <a>No account, sign up</a>
+    <form action="create" method="get">
+        <button type="submit">Register</button>
+    </form>
+</form>
 
-</form>
-<a>No account, sign up</a>
-<form action="create" method="get">
-    <button type="submit">Register</button>
-</form>
 </body>
 </html>

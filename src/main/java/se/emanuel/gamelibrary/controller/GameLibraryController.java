@@ -54,4 +54,14 @@ public class GameLibraryController {
         } else return "redirect:/adminpage.html";
     }
 
+    @GetMapping("action")
+    public String action(Model model) {
+        List<Game> games = service.getAction();
+        if (!games.isEmpty()) {
+            model.addAttribute("actionlist", games);
+            return "actiongamespage";
+        } else return "gamelibrarypage";
+    }
+
+
 }

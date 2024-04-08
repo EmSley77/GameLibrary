@@ -9,6 +9,7 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Integer> {
 
     List<Game> findGamesByNameContainingOrCategoryContainingOrMakerContaining (String search, String sea, String shdh);
-List<Game> findGameByGameid(int id);
+    List<Game> findGameByGameid(int id);
     boolean existsByName(String name);
+    List<Game> findGamesByCategoryContainingIgnoreCase(String category);
 }

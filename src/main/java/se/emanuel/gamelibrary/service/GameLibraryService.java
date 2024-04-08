@@ -50,4 +50,14 @@ public class GameLibraryService {
     public List<Game> getAllGames() {
         return repository.findAll();
     }
+
+    public List<Game> getAction() {
+        return repository.findGamesByCategoryContainingIgnoreCase("Action, fps");
+    }
+    public List<Game> getAdventure() {
+        return repository.findGamesByCategoryContainingIgnoreCase("Adventure, free play");
+    }
+    public List<Game> getSneaky() {
+        return repository.findGamesByCategoryContainingIgnoreCase("Sneaky, free play");
+    }
 }
