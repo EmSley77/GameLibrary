@@ -13,7 +13,7 @@ public class SearchService {
 
     @Autowired
     GameRepository gameRepository;
-
+    // needs better search function, empty space gets removed! easier finding
     public List<Game> search(String s) {
         List<Game> search = gameRepository.findGamesByCategoryContainingIgnoreCaseOrNameContainingIgnoreCaseOrNameEndingWithOrNameContainsIgnoreCaseOrMakerContainsIgnoreCaseOrMakerEndingWithOrNameBetween(s,s,s,s,s,s,s,s);
         return search;

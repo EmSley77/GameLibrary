@@ -12,11 +12,11 @@ import se.emanuel.gamelibrary.service.SearchService;
 public class SearchController {
     @Autowired
     SearchService service;
-
+//testing spliterator for better search, testing!
     @GetMapping("searchgames")
     public String search(Model model, @RequestParam String s) {
         if (!service.search(s).isEmpty()) {
-            model.addAttribute("searchresult",service.search(s));
+            model.addAttribute("searchresult",service.search(s).spliterator());
             return "searchpage";
         } else return "redirect:/gamelibrarypage.html";
 
