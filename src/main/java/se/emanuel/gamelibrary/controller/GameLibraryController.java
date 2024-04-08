@@ -63,5 +63,23 @@ public class GameLibraryController {
         } else return "gamelibrarypage";
     }
 
+    @GetMapping("adventure")
+    public String adventure(Model model) {
+        List<Game> games = service.getAdventure();
+        if (!games.isEmpty()) {
+            model.addAttribute("adventurelist", games);
+            return "adventuregamespage";
+        } else return "gamelibrarypage";
+    }
+
+    @GetMapping("sneaky")
+    public String sneaky(Model model) {
+        List<Game> games = service.getSneaky();
+        if (!games.isEmpty()) {
+            model.addAttribute("sneakylist", games);
+            return "sneakygamespage";
+        } else return "gamelibrarypage";
+    }
+
 
 }

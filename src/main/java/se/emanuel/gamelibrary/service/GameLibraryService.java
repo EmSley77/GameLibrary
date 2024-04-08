@@ -52,12 +52,12 @@ public class GameLibraryService {
     }
 
     public List<Game> getAction() {
-        return repository.findGamesByCategoryContainingIgnoreCase("Action, fps");
+        return repository.findGamesByCategoryContainingIgnoreCase("Action");
     }
     public List<Game> getAdventure() {
-        return repository.findGamesByCategoryContainingIgnoreCase("Adventure, free play");
+        return repository.findGamesByCategoryContainingIgnoreCase("Adventure");
     }
     public List<Game> getSneaky() {
-        return repository.findGamesByCategoryContainingIgnoreCase("Sneaky, free play");
+        return repository.findGamesByCategoryContainingIgnoreCase("Sneaky");
     }
 }

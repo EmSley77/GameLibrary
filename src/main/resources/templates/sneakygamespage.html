@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Action Games</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: #7374c5;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Year</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${sneakylist}">
+        <td th:text="${item.getName()}">Name</td>
+        <td th:text="${item.getPrice()}">Price</td>
+        <td th:text="${item.getReleaseyear()}">Year</td>
+        <td>
+            <form method="post" action="addbaskets">
+                <input name="id" type="hidden" th:value="${item.getGameid()}">
+                <button type="submit">Add to basket</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<form action="gamelibrary" method="get">
+    <button type="submit">Return home</button>
+</form>
+</body>
+</html>
