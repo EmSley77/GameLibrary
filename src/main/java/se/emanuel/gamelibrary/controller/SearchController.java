@@ -16,7 +16,7 @@ public class SearchController {
     @GetMapping("searchgames")
     public String search(Model model, @RequestParam String s) {
         if (!service.search(s).isEmpty()) {
-            model.addAttribute("searchresult",service.search(s).spliterator());
+            model.addAttribute("searchresult",service.search(s));
             return "searchpage";
         } else return "redirect:/gamelibrarypage.html";
 

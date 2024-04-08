@@ -74,14 +74,24 @@ public class BasketService {
 
     public List<Game> addBasket(int id) {
         List<Game> product = gameRepository.findGameByGameid(id);
-        if (product == null) {
+        if (product == null || product.isEmpty()) {
             throw new IllegalArgumentException("product with id not found");
         }
-        for (Game game : product) {
-            game.setAmount(1);
-            game.setPrice(game.getPrice());
-        }
-        basket.addAll(product);
+            boolean foundInBasket = false;
+            for (Game existingGame: basket) {
+                if (existingGame.getGameid() == id)
+                existingGame.setAmount(existingGame.getAmount() + 1);
+                existingGame.setPrice(existingGame.getPrice() * existingGame.getAmount());
+                foundInBasket = true;
+                break;
+            }
+                if (!foundInBasket) {
+                    for (Game game : product) {
+                        game.setAmount(1);
+                        game.setPrice(game.getPrice());
+                    }
+                    basket.addAll(product);
+                }
         return basket;
     }
 
