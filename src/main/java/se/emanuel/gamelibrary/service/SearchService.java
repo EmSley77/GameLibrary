@@ -15,7 +15,7 @@ public class SearchService {
     GameRepository gameRepository;
 
     public List<Game> search(String s) {
-        List<Game> search = gameRepository.findGamesByNameContainingOrCategoryContainingOrMakerContaining(s,s ,s);
+        List<Game> search = gameRepository.findGamesByCategoryContainingIgnoreCaseOrNameContainingIgnoreCaseOrNameEndingWithOrNameContainsIgnoreCaseOrMakerContainsIgnoreCaseOrMakerEndingWithOrNameBetween(s,s,s,s,s,s,s,s);
         return search;
     }
 }
