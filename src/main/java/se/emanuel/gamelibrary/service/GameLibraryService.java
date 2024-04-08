@@ -16,7 +16,7 @@ public class GameLibraryService {
     @Autowired
     GameRepository repository;
 
-    public String addGameToLibrary(String name, String maker, String franchise, String category, int pegi, int year, int price) {
+    public String addGameToLibrary(String name, String maker, String franchise, String category, int pegi, int year, int price, String console) {
         Game game = new Game();
 
         game.setName(name);
@@ -26,6 +26,7 @@ public class GameLibraryService {
         game.setPegi(pegi);
         game.setReleaseyear(year);
         game.setPrice(price);
+        game.setConsole(console);
 
         if (!repository.existsByName(name)) {
             synchronized (this) {

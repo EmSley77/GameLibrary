@@ -36,12 +36,15 @@ public class Game {
     @Basic
     @Column(name = "price", nullable = false)
     private int price;
+    @Basic
+    @Column(name = "console", nullable = false, length = 45)
+    private String console;
 
     public Game() {
 
     }
 
-    public Game(String name, String maker, String franchise, String category, int pegi, int releaseyear, int price, int amount) {
+    public Game(String name, String maker, String franchise, String category, int pegi, int releaseyear, int price, int amount, String console) {
         this.name = name;
         this.maker = maker;
         this.franchise = franchise;
@@ -50,6 +53,15 @@ public class Game {
         this.releaseyear = releaseyear;
         this.price = price;
         this.amount = amount;
+        this.console = console;
+    }
+
+    public String getConsole() {
+        return console;
+    }
+
+    public void setConsole(String console) {
+        this.console = console;
     }
 
     public int getAmount() {

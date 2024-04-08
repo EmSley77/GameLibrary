@@ -32,9 +32,10 @@ public class GameLibraryController {
                           @RequestParam  String category,
                           @RequestParam  int pegi,
                           @RequestParam  int year,
-                          @RequestParam  int price)
+                          @RequestParam  int price,
+                          @RequestParam String console)
     {
-        String game = service.addGameToLibrary(name,maker,franchise,category,pegi,year,price);
+        String game = service.addGameToLibrary(name,maker,franchise,category,pegi,year,price, console);
         model.addAttribute("gametolibrary", game);
         return "redirect:/adminpage.html";
     }
