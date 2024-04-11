@@ -16,7 +16,7 @@ public class AdminController {
 
     @GetMapping("admin")
     public String returnPage() {
-        return"redirect:/adminpage.html";
+        return"redirect:/adminp.html";
     }
 
     @PostMapping("asignadmin")
@@ -28,13 +28,13 @@ public class AdminController {
                            @RequestParam String password,
                            @RequestParam int age) {
         model.addAttribute("admin",adminService.createAdmin(name, lastname, address, username, password, age));
-        return "redirect:/adminpage.html";
+        return "redirect:/adminp.html";
     }
     @GetMapping("orders")
     public String getAllOrders(Model model) {
         if (!adminService.getOrders().isEmpty()) {
             model.addAttribute("orders", adminService.getOrders());
             return "allorderspage";
-        } else return "redirect:/adminpage.html";
+        } else return "redirect:/adminp.html";
     }
 }

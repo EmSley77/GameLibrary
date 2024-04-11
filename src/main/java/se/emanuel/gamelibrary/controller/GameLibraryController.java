@@ -37,13 +37,13 @@ public class GameLibraryController {
     {
         String game = service.addGameToLibrary(name,maker,franchise,category,pegi,year,price, console);
         model.addAttribute("gametolibrary", game);
-        return "redirect:/adminpage.html";
+        return "redirect:/adminp.html";
     }
 
     @PostMapping("removegame")
     public String removeGame(@RequestParam int id, Model model) {
         model.addAttribute("removal", service.removeGameFromLibrary(id));
-        return "redirect:/adminpage.html";
+        return "redirect:/adminp.html";
     }
 
     @GetMapping("allgames")
@@ -52,7 +52,7 @@ public class GameLibraryController {
         if (!games.isEmpty()) {
             model.addAttribute("list", games);
             return "allgamespageadmin";
-        } else return "redirect:/adminpage.html";
+        } else return "redirect:/adminp.html";
     }
 
     @GetMapping("action")

@@ -13,7 +13,7 @@ import se.emanuel.gamelibrary.service.CustomerService;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-    @GetMapping("create")
+    @GetMapping("/create")
     public String getLoginCreate() {
         return "redirect:/registerpage.html";
     }
@@ -26,6 +26,6 @@ public class CustomerController {
                            @RequestParam String password,
                            @RequestParam int age) {
         model.addAttribute("admin",customerService.createLogin(name, lastname, address, username, password, age));
-        return "redirect:/loginpage.html";
+        return "redirect:/loginp.html";
     }
 }

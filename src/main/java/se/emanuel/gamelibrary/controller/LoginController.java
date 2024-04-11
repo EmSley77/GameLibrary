@@ -17,7 +17,7 @@ public class LoginController {
 
     @GetMapping("login")
     public String getSite() {
-        return "redirect:/loginpage.html";
+        return "redirect:/loginp.html";
     }
 
     @PostMapping("logintry")
@@ -26,7 +26,7 @@ public class LoginController {
         if (result.equals("Welcome") && loginService.getRole(u, p) == 0) {
             return "redirect:/gamelibrarypage.html";
         } else if (result.equals("Welcome") && loginService.getRole(u, p) == 1) {
-            return "redirect:/adminpage.html";
-        } else return "redirect:/loginpage.html";
+            return "redirect:/adminp.html";
+        } else return "redirect:/loginp.html";
     }
 }
